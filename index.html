@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>VishwasAI – Digital Content Trust Assistant</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, #eef4ff, #ffffff);
+  color: #172033;
+  min-height: 100vh;
+}
+
+header {
+  background: #172b4d;
+  color: white;
+  padding: 25px 18px;
+  text-align: center;
+}
+
+.logo {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.subtitle {
+  margin-top: 8px;
+  font-size: 15px;
+  opacity: 0.9;
+}
+
+.container {
+  max-width: 850px;
+  margin: 25px auto;
+  padding: 0 16px;
+}
+
+.card {
+  background: white;
+  border-radius: 18px;
+  padding: 25px;
+  margin-bottom: 20px;
+  box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+}
+
+h2 {
+  margin-bottom: 15px;
+}
+
+.upload-box {
+  border: 2px dashed #5b78a6;
+  border-radius: 15px;
+  padding: 30px 15px;
+  text-align: center;
+  background: #f7faff;
+}
+
+input[type="file"] {
+  margin-top: 15px;
+  width: 100%;
+}
+
+button {
+  border: none;
+  border-radius: 10px;
+  padding: 12px 18px;
+  margin: 8px 5px 0 0;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.analyze {
+  background: #172b4d;
+  color: white;
+  width: 100%;
+  margin-top: 18px;
+}
+
+.lang {
+  background: white;
+  color: #172b4d;
+}
+
+.sample-real {
+  background: #dff6e7;
+}
+
+.sample-suspicious {
+  background: #fff0cf;
+}
+
+.sample-ai {
+  background: #ffe0e0;
+}
+
+.result {
+  display: none;
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 14px;
+  background: #fff7df;
+  border-left: 6px solid #e3a600;
+}
+
+.result h3 {
+  margin-bottom: 10px;
+}
+
+.signal {
+  margin-top: 10px;
+  padding: 10px;
+  background: #f5f5f5;
+  border-radius: 8px;
+}
+
+.guidance li {
+  margin: 9px 0;
+}
+
+.samples {
+  text-align: center;
+}
+
+.badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: #e9eef8;
+  margin-bottom: 10px;
+  font-size: 13px;
+}
+
+footer {
+  text-align: center;
+  padding: 25px;
+  color: #667085;
+  font-size: 13px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">🛡️ VishwasAI</div>
+  <div class="subtitle">
+    Digital Content Trust Assistant
+  </div>
+
+  <button class="lang" onclick="toggleLanguage()">
+    मराठी / English
+  </button>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <span class="badge">Responsible AI • Digital Trust</span>
+
+    <h2 id="title">
+      Check Digital Content
+    </h2>
+
+    <p id="description">
+      Upload an image, video or audio file for a demonstration risk assessment.
+    </p>
+
+    <div class="upload-box">
+      <strong>📁 Upload Content</strong>
+      <br>
+      <input type="file" id="fileInput"
+        accept="image/*,video/*,audio/*">
+    </div>
+
+    <button class="analyze" onclick="analyzeContent()">
+      🔍 Analyze Content
+    </button>
+
+    <div class="result" id="result">
+
+      <h3 id="resultTitle">
+        ⚠️ Needs Verification
+      </h3>
+
+      <p id="confidence">
+        Demonstration assessment
+      </p>
+
+      <div class="signal">
+        <strong>Possible Signals</strong>
+        <p id="signals">
+          AI-generation or manipulation cannot be ruled out.
+        </p>
+      </div>
+
+      <div class="signal">
+        <strong>Verification Guidance</strong>
+
+        <ul class="guidance">
+          <li>Check the original source and publication date.</li>
+          <li>Compare with independent reliable sources.</li>
+          <li>Do not forward suspicious content before verification.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="card samples">
+
+    <h2>🧪 Sample Test Cases</h2>
+
+    <p>Click a sample to see the demo output.</p>
+
+    <button class="sample-real"
+      onclick="showSample('real')">
+      🟢 Real — Demo
+    </button>
+
+    <button class="sample-suspicious"
+      onclick="showSample('suspicious')">
+      🟠 Suspicious — Demo
+    </button>
+
+    <button class="sample-ai"
+      onclick="showSample('ai')">
+      🔴 AI-Generated — Demo
+    </button>
+
+  </div>
+
+
+  <div class="card">
+
+    <h2>ℹ️ About VishwasAI</h2>
+
+    <p>
+      VishwasAI is a citizen-focused concept for helping users
+      understand possible digital manipulation signals and verification steps.
+    </p>
+
+    <br>
+
+    <p>
+      <strong>Important:</strong>
+      This prototype uses simulated demonstration results.
+      It is not a forensic verdict and does not claim 100% detection accuracy.
+    </p>
+
+  </div>
+
+</div>
+
+<footer>
+  VishwasAI © 2026<br>
+  Responsible AI • Deepfake Detection • Cyber Resilience • Digital Trust
+</footer>
+
+
+<script>
+
+let marathi = false;
+
+function analyzeContent() {
+
+  const file = document.getElementById("fileInput").files[0];
+
+  if (!file) {
+    alert("Please upload an image, video or audio file first.");
+    return;
+  }
+
+  document.getElementById("result").style.display = "block";
+
+  document.getElementById("resultTitle").innerText =
+    "⚠️ Needs Verification";
+
+  document.getElementById("confidence").innerText =
+    "Demo assessment — further verification recommended.";
+
+  document.getElementById("signals").innerText =
+    "Possible AI-generation or manipulation signals may require further checking.";
+
+}
+
+
+function showSample(type) {
+
+  const result = document.getElementById("result");
+  const title = document.getElementById("resultTitle");
+  const confidence = document.getElementById("confidence");
+  const signals = document.getElementById("signals");
+
+  result.style.display = "block";
+
+  if (type === "real") {
+
+    title.innerText = "🟢 Real — Demo";
+
+    confidence.innerText =
+      "Demo confidence: 91%";
+
+    signals.innerText =
+      "No major manipulation signal detected in this simulated test.";
+
+  }
+
+  else if (type === "suspicious") {
+
+    title.innerText = "🟠 Suspicious — Demo";
+
+    confidence.innerText =
+      "Demo confidence: 78%";
+
+    signals.innerText =
+      "Some visual or metadata-related signals may require verification.";
+
+  }
+
+  else {
+
+    title.innerText = "🔴 AI-Generated — Demo";
+
+    confidence.innerText =
+      "Demo confidence: 89%";
+
+    signals.innerText =
+      "Simulated AI-generation indicators detected. Verify the original source.";
+
+  }
+
+}
+
+
+function toggleLanguage() {
+
+  marathi = !marathi;
+
+  if (marathi) {
+
+    document.getElementById("title").innerText =
+      "डिजिटल सामग्री तपासा";
+
+    document.getElementById("description").innerText =
+      "प्रतिमा, व्हिडिओ किंवा ऑडिओ अपलोड करून प्रात्यक्षिक जोखीम मूल्यांकन पहा.";
+
+  } else {
+
+    document.getElementById("title").innerText =
+      "Check Digital Content";
+
+    document.getElementById("description").innerText =
+      "Upload an image, video or audio file for a demonstration risk assessment.";
+
+  }
+
+}
+
+</script>
+
+</body>
+</html>
